@@ -9,12 +9,15 @@ files to IPFS return sequence of the file's hashes
     python path/to/pmgen.py pyipfs.nim
     ```
 
-## Usage
-    * Using nim module:
+## Example
+
+* Using nim module:
+
     ```
     nim c -r ipfs.nim /path/to/file
     ```
-    * Using python
+
+* Using python
     ```python
     import ipfs
 
