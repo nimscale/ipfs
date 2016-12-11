@@ -29,7 +29,7 @@ proc installIpfs(path: string): string =
   removeDir("$#/go-ipfs.tar.gz" % path)
 
 
-proc startIpfs(path: string = "$#/go-ipfs/" % tmpdir): Process =
+proc startIpfs(path: string = tmpdir): Process =
   var process = startProcess("ipfs", path, ["daemon"])
   var f : File;
   discard f.open(outputHandle(process), fmRead)
@@ -44,6 +44,9 @@ proc installRedis(path: string): string =
   downloadFile(url, "$#/redis.tar.gz" % path)
   echo extractFromTarGz("$#/redis.tar.gz" % path, tmpdir)
   result = execProcess("cd $#/redis-stable && make" % [path])
+  moveFile("$#/redis-stable/src/redis-server" % path, path)
+  removeDir("$#/redis-stable" % path)
+  removeDir("$#/redis.tar.gz" % path)
 
 proc clean(p: Process) =
   p.close()
@@ -52,5 +55,5 @@ createDir(tmpdir)
 echo installIpfs(tmpdir)
 echo installRedis(tmpdir)
 var process = startIpfs()
-echo execProcess("ipfs add $#/redis-stable/src/redis-server" % tmpdir)
+echo execProcess("ipfs add $#/redis-server" % tmpdir)
 clean(process)
