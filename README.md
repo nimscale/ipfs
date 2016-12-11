@@ -8,6 +8,7 @@ files to IPFS return sequence of the file's hashes
     ```
     python path/to/pmgen.py pyipfs.nim
     ```
+* `jsbase.nim`: Command line tool, it's main purpose is to build both `ipfs` and `redis` then add `redis` to `ipfs`
 
 ## Example
 
